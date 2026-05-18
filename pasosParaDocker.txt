@@ -1,0 +1,55 @@
+HECHO CON INVESTIGACIÓN PROPIA Y CON LA AYUDA DE Mistral AI 
+
+comandos usados para docker en clase:
+
+docker run -d --name pito -p 6767:80 -v /home/Alumno26.MICELI.Francisco@ipm.edu.ar/prueba:/usr/share/nginx/html nginx -v 
+
+
+
+pasos para crear entorno MySQL con el Python + DJango:
+
+1-clonar el repositorio (solo si es una computadora nueva)
+git clone https://github.com/fmicelii/2026-MTN-TPDocker-Miceli-Tabuada.git
+cd 2026-MTN-TPDocker-Miceli-Tabuada
+
+2-crear la red donde todo va a estar
+docker network create redTpDocker
+
+3-crear contenedor para MySQL
+docker run --name db_TPDocker \
+  -e MYSQL_ROOT_PASSWORD=jxPE3wgLnHu0LpJcwuQmoA== \
+  -e MYSQL_DATABASE=db_tp_docker \
+  -e MYSQL_USER=alumno26.miceli.francisco \
+  -e MYSQL_PASSWORD=jxPE3wgLnHu0LpJcwuQmoA== \
+  --network redTpDocker \
+  -v mysql_data:/var/lib/mysql \
+  -d mysql:8.0
+
+  (esperar ~10 segundos a que MySQL termine de iniciar antes del siguiente paso)
+
+4-buildear la imagen de Django a partir del Dockerfile
+docker build -t django-backend ./django-backend
+
+5-crear contenedor para el backend (con Django)
+docker run --name django_app_TPDocker \
+  --network redTpDocker \
+  -e DB_HOST=db_TPDocker \
+  -e DB_NAME=db_tp_docker \
+  -e DB_USER=alumno26.miceli.francisco \
+  -e DB_PASSWORD=jxPE3wgLnHu0LpJcwuQmoA== \
+  -p 8000:8000 \
+  -d django-backend
+
+para probar que todo funciona:
+curl http://localhost:8000/health/     -> debe responder: {"status": "API is running"}
+curl http://localhost:8000/db-status/  -> debe responder: {"db_connection": "success", ...}
+
+---
+
+para la proxima vez que quieras levantar los contenedores ya creados (sin recrearlos):
+docker start db_TPDocker
+docker start django_app_TPDocker
+
+para detenerlos:
+docker stop django_app_TPDocker
+docker stop db_TPDocker

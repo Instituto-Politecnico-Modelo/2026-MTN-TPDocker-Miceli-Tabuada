@@ -8,6 +8,15 @@ DEBUG = True
 # de lo contrario lanza un CommandError al iniciar y el contenedor se cierra de inmediato.
 ALLOWED_HOSTS = ['*']
 
+SECRET_KEY = 'django-insecure-tpdocker-dev-key-cambiar-en-produccion'
+
+ROOT_URLCONF = 'TPDocker.urls'
+
+INSTALLED_APPS = [
+    'django.contrib.contenttypes',
+    'django.contrib.auth',
+]
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -19,6 +28,6 @@ DATABASES = {
     }
 }
 
-#dominios desde los cuales el servidor aceptará solicitudes HTTP que modifiquen datos
-#como put delete y esos
+# dominios desde los cuales el servidor aceptará solicitudes HTTP que modifiquen datos
+# como put delete y esos
 CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
