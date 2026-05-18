@@ -22,3 +22,11 @@ docker run --name db_TPDocker \
   -d mysql:8.0
 
 3-crear y planear estructura para el backend (con DJango)
+docker run --name django_app_TPDocker \
+  --network redTpDocker \
+  -e DB_HOST=db_TPDocker \
+  -e DB_NAME=db_tp_docker \
+  -e DB_USER=alumno26.miceli.francisco \
+  -e DB_PASSWORD=jxPE3wgLnHu0LpJcwuQmoA== \
+  -p 8000:8000 \
+  -d django-backend

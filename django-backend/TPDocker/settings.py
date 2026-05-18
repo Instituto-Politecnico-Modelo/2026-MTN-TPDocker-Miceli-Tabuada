@@ -1,5 +1,13 @@
 import os
 
+# DEBUG debe estar en True porque si no está definido Django lo interpreta como False,
+# y con DEBUG=False el servidor no arranca sin una configuración más estricta de seguridad.
+DEBUG = True
+
+# Con DEBUG=False Django exige que ALLOWED_HOSTS esté configurado explícitamente,
+# de lo contrario lanza un CommandError al iniciar y el contenedor se cierra de inmediato.
+ALLOWED_HOSTS = ['*']
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -13,4 +21,4 @@ DATABASES = {
 
 #dominios desde los cuales el servidor aceptará solicitudes HTTP que modifiquen datos
 #como put delete y esos
-CSRF_TRUSTED_ORIGINS = ["http://localhost:8000"]
+CSRF_TRUSTED_ORIGINS = ['http://localhost:8000']
