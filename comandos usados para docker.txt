@@ -8,10 +8,10 @@ docker run -d --name pito -p 6767:80 -v /home/Alumno26.MICELI.Francisco@ipm.edu.
 
 pasos para crear entorno MySQL con el Python + DJango:
 
--(crear la red donde todo va a estar)
+1-crear la red donde todo va a estar
 docker network create redTpDocker
 
--(crear contenedor para MySQL)
+2-crear contenedor para MySQL
 docker run --name db_TPDocker \
   -e MYSQL_ROOT_PASSWORD=jxPE3wgLnHu0LpJcwuQmoA== \
   -e MYSQL_DATABASE=db_TPDocker \
@@ -20,3 +20,5 @@ docker run --name db_TPDocker \
   --network redTpDocker \
   -v mysql_data:/var/lib/mysql \
   -d mysql:8.0
+
+3-crear y planear estructura para el backend (con DJango)
