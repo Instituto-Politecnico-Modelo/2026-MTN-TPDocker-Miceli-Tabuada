@@ -6,6 +6,6 @@ from . import views
 urlpatterns = [ #definimos las url
     path('health/', views.health),
     path('db-status/', views.db_status),
-    path('items/', views.items_list, name='items_list'),
-    path('items/', views.create_item, name='create_item'),
+    path('items/', views.items_list, name='items_list'),     # GET /items/
+    path('items/create/', views.create_item, name='create_item'), # POST /items/create/
 ]
