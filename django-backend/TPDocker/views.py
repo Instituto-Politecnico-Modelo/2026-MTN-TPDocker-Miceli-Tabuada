@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.db import connection
+from TPDocker.models import Item
 import os
 
 def health(request):
@@ -19,24 +20,21 @@ from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST, require_GET
 import json
 
-@csrf_exempt
+@csrf_exempt  # Para simplificar (evita problemas con CSRF)
 @require_POST
 def create_item(request):
     try:
         data = json.loads(request.body)
         nombre = data.get('nombre')
-        with connection.cursor() as cursor:
-            cursor.execute("INSERT INTO items (nombre) VALUES (%s)", [nombre])
-        return JsonResponse({"status": "Item created", "nombre": nombre})
+        Item.objects.create(nombre=nombre)
+        return JsonResponse({"status": "Item creado", "nombre": nombre})
     except Exception as e:
-        return JsonResponse({"error": str(e)}, status=400)
+        return JsonResponse({"status": "ERROR", "mensaje": str(e)}, status=400)
 
 @require_GET
 def items_list(request):
     try:
-        with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM items")
-            items = [{"id": row[0], "nombre": row[1], "created_at": row[2]} for row in cursor.fetchall()]
-        return JsonResponse({"items": items})
+        items = Item.objects.all().values('id', 'nombre', 'created_at')
+        return JsonResponse({"items": list(items)})
     except Exception as e:
-        return JsonResponse({"error": str(e)}, status=500)
+        return JsonResponse({"status": "ERROR", "mensaje": str(e)}, status=500)

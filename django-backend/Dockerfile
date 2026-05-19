@@ -15,4 +15,4 @@ ENV DB_USER=alumno26.miceli.francisco
 ENV DB_PASSWORD=jxPE3wgLnHu0LpJcwuQmoA==
 
 #comando para iniciar el servidor django
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"]

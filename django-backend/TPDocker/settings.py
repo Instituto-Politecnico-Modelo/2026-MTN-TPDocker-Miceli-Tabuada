@@ -10,11 +10,14 @@ ALLOWED_HOSTS = ['*']
 
 SECRET_KEY = 'django-insecure-tpdocker-dev-key-cambiar-en-produccion'
 
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
 ROOT_URLCONF = 'TPDocker.urls'
 
 INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.auth',
+    'TPDocker',  # Registrar la app para que Django detecte los modelos
 ]
 
 DATABASES = {
