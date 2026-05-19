@@ -3,16 +3,16 @@ from django.db import connection
 import os
 
 def health(request):
-    return JsonResponse({"status": "API is running"})
+    return JsonResponse({"status": "la API esta corriendo! hola bro nashe"})
 
 def db_status(request):
     try:
         with connection.cursor() as cursor:
             cursor.execute("SELECT 1")
             result = cursor.fetchone()
-        return JsonResponse({"db_connection": "success", "message": "Database is reachable"})
+        return JsonResponse({"db_connection": "exitosa", "status": "La base de datos es accesible"})
     except Exception as e:
-        return JsonResponse({"db_connection": "failed", "error": str(e)})
+        return JsonResponse({"db_connection": "fallido", "status": str(e)})
 
 # Opcional: Endpoints para /items
 from django.views.decorators.csrf import csrf_exempt
