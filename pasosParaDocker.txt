@@ -16,7 +16,7 @@ cd 2026-MTN-TPDocker-Miceli-Tabuada
 docker network create redTpDocker
 
 3-crear contenedor para MySQL
-docker run 
+docker run \
   --name db_TPDocker \
   -e MYSQL_ROOT_PASSWORD=jxPE3wgLnHu0LpJcwuQmoA== \
   -e MYSQL_DATABASE=db_tp_docker \
@@ -24,7 +24,7 @@ docker run
   -e MYSQL_PASSWORD=jxPE3wgLnHu0LpJcwuQmoA== \
   --network redTpDocker \
   -v mysql_data:/var/lib/mysql \
-  -d 
+  -d \
   mysql:8.0
 
   (esperar ~10 segundos a que MySQL termine de iniciar antes del siguiente paso)
@@ -33,7 +33,7 @@ docker run
 docker build -t django-backend ./django-backend
 
 5-crear contenedor para el backend (con Django)
-docker run 
+docker run \
   --name django_app_TPDocker \
   --network redTpDocker \
   -e DB_HOST=db_TPDocker \
@@ -41,7 +41,7 @@ docker run
   -e DB_USER=alumno26.miceli.francisco \
   -e DB_PASSWORD=jxPE3wgLnHu0LpJcwuQmoA== \
   -p 8000:8000 \
-  -d 
+  -d \
   django-backend
 
 para probar que todo funciona:
