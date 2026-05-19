@@ -1,8 +1,8 @@
 # 🐳 TP Docker — Miceli & Tabuada
 
-> **Stack asignado:** Python + Django (Grupo 5)  
-> **Stack extra (TP recuperatorio):** Python + Flask  
-> Hecho con investigación propia y con la ayuda de **Mistral AI** y **GitHub Copilot**
+> **Stack asignado:** Python + Django
+> **Stack extra:** Python + Flask  
+> Hecho con investigación propia y con la ayuda de **Mistral AI** y **Claude Sonnet 4.6**
 
 ---
 
@@ -38,25 +38,25 @@ Los contenedores dentro de una red Docker se comunican entre sí usando el
 el navegador) **no podés acceder** a menos que el puerto esté expuesto con `-p`.
 
 ```
-Tu PC
+Lo que se expone
 ├── localhost:3307  →  db_TPDocker (MySQL en Docker)   ✅ expuesto con -p 3307:3306
 ├── localhost:8000  →  django_app_TPDocker              ✅ expuesto con -p 8000:8000
 └── localhost:5000  →  flask_app_TPDocker               ✅ expuesto con -p 5000:5000
 
-Red Docker interna (redTpDocker)  ← zona privada, invisible desde afuera
+Red Docker interna (redTpDocker) - zona privada
 ├── db_TPDocker           →  escucha en puerto 3306
 ├── django_app_TPDocker   →  se conecta a db_TPDocker:3306 ✅
 └── flask_app_TPDocker    →  se conecta a db_TPDocker:3306 ✅
 ```
 
-> ⚠️ El puerto 3306 ya está ocupado por el MySQL local del laboratorio,
+> ⚠️ El puerto 3306 ya está ocupado por el MySQL local
 > por eso mapeamos el contenedor MySQL al puerto **3307** en nuestra PC.
 
 ---
 
 ## 🚀 Setup desde cero
 
-### 1. Clonar el repositorio *(solo en una PC nueva)*
+### 1. Clonar el repositorio
 
 ```bash
 git clone https://github.com/fmicelii/2026-MTN-TPDocker-Miceli-Tabuada.git
@@ -85,13 +85,17 @@ docker run \
   mysql:8.0
 ```
 
-> ⏳ Esperá ~10 segundos a que MySQL termine de iniciar antes del siguiente paso.
+> ⏳ esperar ~10 segundos a que MySQL termine de iniciar antes del siguiente paso.
 
-### 4. Buildear y levantar Django
+### 4.a. Buildear
 
 ```bash
 docker build -t django-backend ./django-backend
+```
 
+### 4.b. levantar django
+
+```bash
 docker run \
   --name django_app_TPDocker \
   --network redTpDocker \
