@@ -85,7 +85,7 @@ def create_item():
         nombre = data.get('nombre')
         conn = get_connection()
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO items (nombre) VALUES (%s)", (nombre,))
+        cursor.execute("INSERT INTO items (nombre, created_at) VALUES (%s, NOW())",(data["nombre"],))
         conn.commit()
         cursor.close()
         conn.close()
