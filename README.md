@@ -5,6 +5,18 @@
 
 ---
 
+## 📌 Descripción del proyecto
+
+Este proyecto consiste en dos backends independientes (**Django** y **Flask**) que corren en contenedores Docker y se conectan a una base de datos **MySQL** en un tercer contenedor, todos comunicados a través de una red Docker privada.
+
+Cada backend expone los mismos endpoints:
+- `GET /health` — confirma que la API está activa, sin tocar la base de datos
+- `GET /db-status` — ejecuta una consulta simple a MySQL y devuelve si la conexión fue exitosa
+- `GET /items` — devuelve todos los registros de la tabla `items`
+- `POST /items` — crea un nuevo registro en la tabla `items`
+
+---
+
 ## 📁 Estructura del repositorio
 
 ```
