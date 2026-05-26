@@ -2,7 +2,6 @@
 
 > **Stack asignado:** Python + Django
 > **Stack extra:** Python + Flask  
-> Hecho con investigación propia y con la ayuda de **Mistral AI** y **Claude Sonnet 4.6**
 
 ---
 
