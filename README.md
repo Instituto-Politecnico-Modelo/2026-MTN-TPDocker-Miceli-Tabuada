@@ -87,13 +87,13 @@ docker run \
 
 > ⏳ esperar ~10 segundos a que MySQL termine de iniciar antes del siguiente paso.
 
-### 4.a. Buildear
+### 4.a. Buildear Django
 
 ```bash
 docker build -t django-backend ./django-backend
 ```
 
-### 4.b. levantar django
+### 4.b. levantar Django
 
 ```bash
 docker run \
@@ -111,11 +111,15 @@ docker run \
 > Al iniciar, Django corre automáticamente `makemigrations` + `migrate`
 > y crea la tabla `items` en MySQL sin intervención manual.
 
-### 5. Buildear y levantar Flask
+### 5.a. Buildear Flask
 
 ```bash
 docker build -t flask-backend ./flask-backend
+```
 
+### 5.b. levantar Flask
+
+```bash
 docker run \
   --name flask_app_TPDocker \
   --network redTpDocker \
@@ -178,7 +182,7 @@ curl -X POST http://localhost:5000/items \
 | Host     | `127.0.0.1`                |
 | Port     | `3307`                     |
 | User     | `root`                     |
-| Password | `jxPE3wgLnHu0LpJcwuQmoA==` |
+| Password | depende la compu           |
 
 > La base de datos se llama **`db_tp_docker`** y la tabla principal es **`items`**.  
 > Workbench es solo para visualizar — la base y las tablas las crea Docker solo.
@@ -187,20 +191,20 @@ curl -X POST http://localhost:5000/items \
 
 ## 🔄 Uso diario (contenedores ya creados)
 
-### Levantar todo
-
-```bash
-docker start db_TPDocker
-docker start django_app_TPDocker
-docker start flask_app_TPDocker
-```
-
 ### Detener todo
 
 ```bash
 docker stop flask_app_TPDocker
 docker stop django_app_TPDocker
 docker stop db_TPDocker
+```
+
+### Levantar todo
+
+```bash
+docker start db_TPDocker
+docker start django_app_TPDocker
+docker start flask_app_TPDocker
 ```
 
 ---
@@ -227,20 +231,6 @@ USE db_tp_docker;
 SHOW TABLES;
 SELECT * FROM items;
 ```
-
-### Recrear un contenedor desde cero
-
-```bash
-# Ejemplo con Flask (mismo proceso para Django)
-docker stop flask_app_TPDocker
-docker rm flask_app_TPDocker
-docker rmi flask-backend
-docker build -t flask-backend ./flask-backend
-docker run --name flask_app_TPDocker ...
-```
-
-> 💾 Los datos de MySQL se conservan en el volumen `mysql_data` aunque borres el contenedor.  
-> Para borrar los datos también: `docker volume rm mysql_data`
 
 ---
 
@@ -277,6 +267,6 @@ docker run --name flask_app_TPDocker ...
 | | |
 |---|---|
 | **Integrantes** | Miceli, Tabuada |
-| **Stack asignado** | Python + Django (Grupo 5) |
+| **Stack asignado** | Python + Django |
 | **Stack extra** | Python + Flask |
-| **Curso** | MTN 2026 |
+| **Curso** | 4° CSTC |
